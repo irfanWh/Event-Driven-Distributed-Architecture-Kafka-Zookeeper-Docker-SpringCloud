@@ -49,7 +49,7 @@ public class PageEventHandler {
                 input.filter((k, v)->v.duration()>1000)
                         .map((k, v)->new KeyValue<>(v.name(), v.duration()))
                         .groupByKey(Grouped.with(Serdes.String(), Serdes. Long()))
-                        .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(5000)))
+                        .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(5)))
                         .count(Materialized.as("count-store"))
                         .toStream()
                         .map((k, v) -> new KeyValue<>(k.key(), v));
